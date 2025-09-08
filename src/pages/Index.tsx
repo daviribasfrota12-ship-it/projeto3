@@ -10,7 +10,7 @@ import Dashboard from '@/components/Dashboard';
 import heroImage from '@/assets/hero-environmental.jpg';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('nova-denuncia');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
@@ -70,9 +70,8 @@ const Index = () => {
                 Nova Denúncia
               </Button>
               <Button
-                variant="outline"
                 size="lg"
-                className="min-w-[200px] border-white/20 text-white hover:bg-white/10"
+                className="min-w-[200px] bg-white/20 text-white border border-white/30 hover:bg-white/30 backdrop-blur-sm"
                 onClick={() => setActiveTab('denuncias')}
               >
                 <Shield className="h-5 w-5 mr-2" />
@@ -113,10 +112,6 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Dashboard
-            </TabsTrigger>
             <TabsTrigger value="nova-denuncia" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Nova Denúncia
@@ -124,6 +119,10 @@ const Index = () => {
             <TabsTrigger value="denuncias" className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
               Denúncias
+            </TabsTrigger>
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Dashboard
             </TabsTrigger>
           </TabsList>
 
