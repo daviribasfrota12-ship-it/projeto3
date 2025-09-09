@@ -196,7 +196,7 @@ const Index = () => {
           </div>
 
           <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
-            <p>© 2024 EcoReport - Sistema de Denúncias Ambientais. Projeto Integrador - Engenharia de Software.</p>
+            <p>© 2025 EcoReport - Sistema de Denúncias Ambientais. Projeto Integrador - Engenharia de Software.</p>
           </div>
         </div>
       </footer>
