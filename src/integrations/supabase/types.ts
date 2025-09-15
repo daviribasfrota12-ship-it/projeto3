@@ -14,16 +14,172 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      municipal_contacts: {
+        Row: {
+          civil_defense_contact: string
+          created_at: string
+          emergency_contact: string
+          environmental_contact: string
+          id: string
+          keywords: string[]
+          municipality: string
+          police_contact: string
+          state: string
+          updated_at: string
+        }
+        Insert: {
+          civil_defense_contact: string
+          created_at?: string
+          emergency_contact: string
+          environmental_contact: string
+          id?: string
+          keywords: string[]
+          municipality: string
+          police_contact: string
+          state: string
+          updated_at?: string
+        }
+        Update: {
+          civil_defense_contact?: string
+          created_at?: string
+          emergency_contact?: string
+          environmental_contact?: string
+          id?: string
+          keywords?: string[]
+          municipality?: string
+          police_contact?: string
+          state?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          city: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          state: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          created_at: string
+          description: string
+          evidence_urls: string[] | null
+          id: string
+          is_anonymous: boolean
+          latitude: number | null
+          location: string
+          longitude: number | null
+          municipal_contact_info: Json | null
+          report_number: string
+          reporter_contact: string | null
+          reporter_name: string | null
+          resolution_notes: string | null
+          resolved_at: string | null
+          status: Database["public"]["Enums"]["report_status"]
+          title: string
+          type: Database["public"]["Enums"]["report_type"]
+          updated_at: string
+          urgency: Database["public"]["Enums"]["urgency_level"]
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          evidence_urls?: string[] | null
+          id?: string
+          is_anonymous?: boolean
+          latitude?: number | null
+          location: string
+          longitude?: number | null
+          municipal_contact_info?: Json | null
+          report_number: string
+          reporter_contact?: string | null
+          reporter_name?: string | null
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["report_status"]
+          title: string
+          type: Database["public"]["Enums"]["report_type"]
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["urgency_level"]
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          evidence_urls?: string[] | null
+          id?: string
+          is_anonymous?: boolean
+          latitude?: number | null
+          location?: string
+          longitude?: number | null
+          municipal_contact_info?: Json | null
+          report_number?: string
+          reporter_contact?: string | null
+          reporter_name?: string | null
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["report_status"]
+          title?: string
+          type?: Database["public"]["Enums"]["report_type"]
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["urgency_level"]
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_report_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      report_status: "pending" | "investigating" | "resolved" | "dismissed"
+      report_type:
+        | "deforestation"
+        | "burning"
+        | "illegal_disposal"
+        | "water_pollution"
+        | "air_pollution"
+        | "noise_pollution"
+        | "illegal_hunting"
+        | "other"
+      urgency_level: "low" | "medium" | "high" | "critical"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +306,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      report_status: ["pending", "investigating", "resolved", "dismissed"],
+      report_type: [
+        "deforestation",
+        "burning",
+        "illegal_disposal",
+        "water_pollution",
+        "air_pollution",
+        "noise_pollution",
+        "illegal_hunting",
+        "other",
+      ],
+      urgency_level: ["low", "medium", "high", "critical"],
+    },
   },
 } as const
