@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MapPin, Clock, User, Eye, Filter } from 'lucide-react';
+import { MapPin, Clock, User, Eye, Filter, Phone } from 'lucide-react';
+import MunicipalContacts from './MunicipalContacts';
+import { detectMunicipality } from '@/data/municipalContacts';
 
 interface Report {
   id: string;
@@ -289,18 +291,22 @@ const ReportList = () => {
                       </div>
                     </div>
 
-                    {/* Right side - Actions */}
-                    <div className="flex flex-row lg:flex-col gap-2">
-                      <Button variant="outline" size="sm" className="flex-1 lg:flex-none">
-                        <Eye className="h-4 w-4 mr-2" />
-                        Ver Detalhes
-                      </Button>
-                      {report.status === 'pending' && (
-                        <Button size="sm" className="flex-1 lg:flex-none">
-                          Investigar
-                        </Button>
-                      )}
-                    </div>
+                     {/* Right side - Actions */}
+                     <div className="flex flex-row lg:flex-col gap-2">
+                       <Button variant="outline" size="sm" className="flex-1 lg:flex-none">
+                         <Eye className="h-4 w-4 mr-2" />
+                         Ver Detalhes
+                       </Button>
+                       <Button variant="outline" size="sm" className="flex-1 lg:flex-none">
+                         <Phone className="h-4 w-4 mr-2" />
+                         Contatos
+                       </Button>
+                       {report.status === 'pending' && (
+                         <Button size="sm" className="flex-1 lg:flex-none">
+                           Investigar
+                         </Button>
+                       )}
+                     </div>
                   </div>
                 </CardContent>
               </Card>

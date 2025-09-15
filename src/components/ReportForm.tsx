@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MapPin, Camera, FileText, AlertTriangle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import MunicipalContacts from './MunicipalContacts';
+import { detectMunicipality, MunicipalContact } from '@/data/municipalContacts';
 
 const ReportForm = () => {
   const [formData, setFormData] = useState({
@@ -17,8 +19,19 @@ const ReportForm = () => {
     reporterContact: '',
     urgency: ''
   });
+  const [municipalData, setMunicipalData] = useState<MunicipalContact | null>(null);
 
   const { toast } = useToast();
+
+  // Detectar município baseado na localização
+  useEffect(() => {
+    if (formData.location) {
+      const detected = detectMunicipality(formData.location);
+      setMunicipalData(detected);
+    } else {
+      setMunicipalData(null);
+    }
+  }, [formData.location]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,19 +69,20 @@ const ReportForm = () => {
   ];
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader className="text-center">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <div className="p-3 rounded-full bg-primary/10">
-            <FileText className="h-6 w-6 text-primary" />
+    <div className="space-y-6">
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardHeader className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="p-3 rounded-full bg-primary/10">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
           </div>
-        </div>
-        <CardTitle className="text-2xl">Formulário de Denúncia Ambiental</CardTitle>
-        <CardDescription>
-          Preencha os dados abaixo para registrar uma denúncia ambiental.
-          Todas as informações são tratadas com confidencialidade.
-        </CardDescription>
-      </CardHeader>
+          <CardTitle className="text-2xl">Formulário de Denúncia Ambiental</CardTitle>
+          <CardDescription>
+            Preencha os dados abaixo para registrar uma denúncia ambiental.
+            Todas as informações são tratadas com confidencialidade.
+          </CardDescription>
+        </CardHeader>
 
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -240,7 +254,14 @@ const ReportForm = () => {
           </div>
         </form>
       </CardContent>
-    </Card>
+      </Card>
+
+      {/* Contatos Municipais */}
+      <MunicipalContacts 
+        municipalData={municipalData}
+        className="w-full max-w-4xl mx-auto"
+      />
+    </div>
   );
 };
 
